@@ -1,0 +1,4 @@
+[20-Nov-2016 21:44:28 UTC] PHP Warning:  file_get_contents(/html/home.html): failed to open stream: No such file or directory in /home/ubuntu/workspace/cgi-bin/login.php on line 10
+[20-Nov-2016 21:44:28 UTC] PHP Stack trace:
+[20-Nov-2016 21:44:28 UTC] PHP   1. {main}() /home/ubuntu/workspace/cgi-bin/login.php:0
+[20-Nov-2016 21:44:28 UTC] PHP   2. file_get_contents() /home/ubuntu/workspace/cgi-bin/login.php:10

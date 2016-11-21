@@ -1,0 +1,38 @@
+#login-panel {
+    margin: 0 auto;
+    width: 25%;
+    padding: 25px;
+    margin-top: 25px;
+    border-radius: 10px;
+    background-color: #E0E0E0;
+}
+
+#nav-bar ul {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #F44336;
+}
+
+#nav-bar li {
+    float: left;
+}
+
+#nav-bar li:last-child {
+    float: right;
+}
+
+#nav-bar li a {
+    display: block;
+    padding: 13px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+}
+
+#nav-bar li input {
+     margin: 13px;
+}
