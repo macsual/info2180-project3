@@ -1,30 +1,46 @@
+# info2180-project3
 
-     ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
-    '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
-    |  |    |  || .-. ||  ||  |' .-. |`..'  |  |  ||  |  \  :|  `--, 
-    '  '--'\|  |' '-' ''  ''  '\ `-' | .'  /   |  ||  '--'  /|  `---.
-     `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
-    ----------------------------------------------------------------- 
+## CheapoMail
 
+Cheapo Mail provides a simple messaging system that only sends mail to other Cheapo users. Users get a login name and password and can see a list of all other Cheapo users.
+This obviously isn't very scalable but CheapoMail doesn't need to be as there will always be only a handful of users.
+You should create the following database tables with the following fields:
+* User
+  * id
+  * firstname
+  * lastname
+  * username
+  * password
+* Message
+  * id
+  * recipient_ids
+  * user_id
+  * subject
+  * body
+  * date_sent
+* Message_read
+  * id
+  * message_id
+  * reader_id
+  * date
 
-Hi there! Welcome to Cloud9 IDE!
+## Features
 
-To get you started, we have created a small hello world application.
+### Adding a user
+To simplify things for this assignment users can only be added by an administrator, there is no feature for new users to self-sign up. An administrator logs in and completes the new user form. Use regular expressions to ensure that passwords have at least one number and one letter, and one capital letter and are at least 8 characters long. The password **MUST** be hashed before being stored in the database. Also ensure the other fields are validated and that user inputs are escaped and sanitized. 
 
-1) Open the hello-world.php file
+### User login
+A user goes to the login page and logs in. The system keeps track of the user using PHP sessions. Once logged in they are presented with the home screen which shows them recent messages which they can read and allows them to compose new messages.
 
-2) Follow the run instructions in the file's comments
+### Home screen
+The home screen allows a logged in user to see their 10 most recent messages and also a link to compose a new message. 
 
-3) If you want to look at the Apache logs, check out ~/lib/apache2/log
+### Compose and send a message
+The compose message screen includes a "subject", "recipients", and "body". Once a message is completed the logged in user can click the send button to make the message go to all recipients. 
 
-And that's all there is to it! Just have fun. Go ahead and edit the code, 
-or add new files. It's all up to you! 
+### Receive and read a message
+Each recipient of the message is alerted on their home screen of new messages. Each message is shown based on the subject and sender. Messages that have not been read are bold. When a message is opened it is immediately "flagged" as being read and is no longer bold in the home screen.
 
-Happy coding!
-The Cloud9 IDE team
+### No Page Refreshes
+All new pages should load without browser refresh, in other words you will need to implement an AJAX based approach to loading new content into the browser.
 
-
-## Support & Documentation
-
-Visit http://docs.c9.io for support, or to learn more about using Cloud9 IDE. 
-To watch some training videos, visit http://www.youtube.com/user/c9ide
