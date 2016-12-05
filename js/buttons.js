@@ -99,6 +99,8 @@ $(document).ready(function() {
 		    		
 		    		var databadge = 0;
 		    		
+		    		var count = 0;
+		    		
 		    		for (var i = (result.length - 1); i >= 0; i--) {
 		    			var unread = false;
 		    			var message = result[i];
@@ -122,13 +124,13 @@ $(document).ready(function() {
 		    				"class": "material-icons mdl-list__item-avatar"
 		    			}).html("person");
 		    			
-		    			var span2 = $("<span></span>").html(sender).attr({"id":"sender-"+ id});
+		    			var span2 = $("<span></span>").html("From: "+ sender).attr({"id":"sender-"+ id});
 		    			
 		    			var span3 = $("<span></span>")
 		    			.attr({
 		    				"class": "mdl-list__item-sub-title",
 		    				"id":"body-"+ id
-		    			}).html(body);
+		    			}).html("Subject: "+ subject);
 		    			
 		    			if (unread){
 		    				span2.attr({"style":"font-weight:bold;"});
@@ -165,7 +167,10 @@ $(document).ready(function() {
 		    			var conversations = $('[name="' + conversation + '"]');
 		    			if (conversations.length > 0) {
 		    				button.attr("hidden", true);
-		    			}
+		    			} else if(count>10)
+		    				break;
+		    			else
+		    				count++;
 		    			
 		    			button.attr({"name":"" + conversation});
 		    			
@@ -264,24 +269,36 @@ $(document).ready(function() {
 	};
 
 	function send(event) {
+		var recipients = $("#recipient").val().split(";");
 		var recipient = $("#recipient").val();
 		var subject = $("#subject").val();
 		var body = $("#body").val();
-		var postdata = "recipient=" + recipient + "&subject=" + subject + "&body=" + body;
+		var count = 0;
+		var failed = [];
 		
-		$.ajax({
-		  type: "POST",
-		  url: "cgi-bin/sendmessage.php",
-		  data: postdata,
-		  success: function(result) {
-		  	if(result == "true"){
-		  		showToast("Message sent");
-		  		$("#messages").click();
-		  	}
-		  	else
-		  		showToast("Message not sent. Try again later");
-		  }
-		});
+		for(var i=0; i<recipients.length; i++){
+			var postdata = "recipient=" + recipient[i] + "&subject=" + subject + "&body=" + body;
+			$.ajax({
+			  type: "POST",
+			  url: "cgi-bin/sendmessage.php",
+			  data: postdata,
+			  success: function(result) {
+			  	if(result === "true"){
+			  		count++;
+			  	} else {
+			  		failed.push(recipient[i]);
+			  	}
+			  }
+			});
+		}
+		
+		if(count === recipients.length){
+			showToast("Message sent");
+			$("#messages").click();
+		} else {
+			showToast("Messages sent to " + count+ "recipients. Failed for: " + failed);
+			$("#messages").click();
+		}
 	}
 	
 	function showUsers(event) {
@@ -518,12 +535,15 @@ $(document).ready(function() {
 		            pword = escapeHtml(pword);
 		            pwordc = escapeHtml(pwordc);
 		            
+		            var regexp = new RegExp("^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{8,}");
+		            
 		            if(pword !== pwordc) {
 		            	showToast("Passwords do not match");
 		            	return;
-		            }
-		            
-		            if(fname === "" || lname === "" || uname === ""){
+		            } else if(!regexp.test(pword)){
+		            	showToast("Your password is not strong enough");
+		            	return;
+		            } else if(fname === "" || lname === "" || uname === ""){
 		            	showToast("All fields required");
 		            	return;
 		            }
