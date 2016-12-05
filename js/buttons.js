@@ -1,11 +1,11 @@
 $(document).ready(function() {
 	var unreadCount = null;
 	
-	function setbuttonclick(button, conversation){
+	function setbuttonclick(button, conversation) {
 		var conversationn = parseInt(conversation);
 		
 		button.on("click", function(event) {
-			// readmessage(parseInt(conversationn));
+			readmessage(parseInt(conversationn));
 			
 			$.ajax({
 				url: "cgi-bin/conversation.php",
@@ -18,9 +18,13 @@ $(document).ready(function() {
 					var sender;
 					var subject = messages[0]['subject'];
 					var count = 0;
-					while(true){
+					console.log(messages);
+					while (true) {
+						if(count == messages.length){
+							break
+						}
 						sender = messages[0 + parseInt(count)]['sender'];
-						if(sender !== $("span.username").text()){
+						if(sender !== $("span.username").text()) {
 							break;
 						}
 						count++;
@@ -45,8 +49,8 @@ $(document).ready(function() {
 		  url: "cgi-bin/sendreply.php",
 		  data: postdata,
 		  success: function(result) {
-		  	if(result == "true"){
-		  		try{document.querySelector('dialog').close();} catch(DOMException){}
+		  	if (result == "true") {
+		  		try {document.querySelector('dialog').close();} catch(DOMException){}
 		  		showToast("Message sent");
 		  		$("#messages").click();
 		  	}
@@ -87,12 +91,12 @@ $(document).ready(function() {
 		    		
 		    		var databadge = 0;
 		    		
-		    		for (var i = (result.length - 1); i >= 0; i--){
+		    		for (var i = (result.length - 1); i >= 0; i--) {
 		    			var unread = false;
 		    			var message = result[i];
 		    			
 		    			//Check if message is read
-		    			if (message['read'] == 0){
+		    			if (message['read'] == 0) {
 		    				databadge += 1;
 		    				unread = true;
 		    			}
@@ -155,7 +159,7 @@ $(document).ready(function() {
 		    				button.attr("hidden", true);
 		    			}
 		    			
-		    			button.attr({"name":""+conversation});
+		    			button.attr({"name":"" + conversation});
 		    			
 		    			setbuttonclick(button, conversation);
 		    			
@@ -163,9 +167,7 @@ $(document).ready(function() {
 		    		}
 		    		
 		    		if (databadge > 0)
-		    			$("#unread").attr({
-		    				"data-badge":""+databadge
-		    			});
+		    			$("#unread").attr({"data-badge":"" + databadge});
 		    	} else {
 		    		//No messages
 		    		var card = $("<div></div>").attr({
