@@ -25,17 +25,17 @@
     $stmt = $conn->query("SELECT id FROM `User` WHERE username=\"$recipient\"");
     $recipientId = $stmt->fetchAll(PDO::FETCH_ASSOC)[0]["id"];
     
-    if($recipientId == 0){
+    if ($recipientId == 0) {
         return "false";
     }
     
     $subject = $_POST['subject'];
     $body = $_POST['body'];
     $conversation = 1;
-    while(true){
+    while (true) {
         $sql = $conn->query("SELECT * FROM Message WHERE conversation=".intval($conversation));
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
-        if(sizeof($result) == 0){
+        if (sizeof($result) == 0) {
             break;
         }
         $conversation++;
@@ -45,11 +45,10 @@
     
     $result = $conn->exec($sql);
     
-    if($result){
+    if ($result) {
         echo "true";
-    }
-    else{
+    } else {
         echo "false";
     }
 
-
+?>

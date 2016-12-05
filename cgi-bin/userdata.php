@@ -24,9 +24,9 @@
     $stmt = $conn->query($sql);
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-    for($i=0; $i<sizeof($results); $i++){
+    for ($i = 0; $i < sizeof($results); $i++) {
     	$result = $results[$i];
-    	if($result['read'] == 0){
+    	if ($result['read'] == 0) {
     	    $unread += 1;
     	}
     	

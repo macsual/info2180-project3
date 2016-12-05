@@ -27,11 +27,10 @@
     
     $result = $conn->exec($sql);
     
-    if($result){
+    if ($result) {
         echo "true";
-    }
-    else{
+    } else {
         echo "false";
     }
-
-
+    
+?>

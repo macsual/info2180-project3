@@ -26,7 +26,7 @@ $sql = "SELECT * FROM Message WHERE recipient_ids=\"$recipientId\"";
 $stmt = $conn->query($sql);
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-for($i=0; $i<sizeof($results); $i++){
+for ($i = 0; $i < sizeof($results); $i++) {
 	$result = $results[$i];
 	$id = $result["user_id"];
 	
@@ -42,3 +42,5 @@ for($i=0; $i<sizeof($results); $i++){
 
 $jsonstring = json_encode($results);
 echo $jsonstring;
+
+?>

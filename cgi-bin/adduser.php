@@ -29,12 +29,10 @@ $sql = "INSERT INTO `User`(`id`, `firstname`, `lastname`, `username`, `password`
 
 $result = $conn->exec($sql);
 
-if($result){
+if ($result) {
     echo "true";
 } else {
     echo "false";
 }
-
-
 
 ?>

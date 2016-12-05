@@ -25,3 +25,5 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $jsonstring = json_encode($results);
 echo $jsonstring;
+
+?>
