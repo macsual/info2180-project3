@@ -276,6 +276,46 @@ $(document).ready(function() {
 		});
 	}
 	
+	function showUsers(event) {
+		$.ajax({
+			url: "cgi-bin/getusers.php",
+			dataType:"json",
+			success:function(result) {
+				var div = $("#dialog-conversation-2");
+        		div.empty();
+        		var h4 = $("<h4></h4>")
+		    	.attr({
+		    		"class": "mdl-dialog__title"
+		    	}).html("Users");
+		    	div.append(h4);
+				for(var i=0; i<result.length; i++){
+					
+					var content = result[i]['username'];
+		        	
+		        	var div2 = $("<span></span>")
+		        	.attr({
+		        		"class": "mdl-dialog__content",
+		        		"style": "color: black;"
+		        	}).html(content).append($("<br/>"));
+		        	
+		        	div.append(div2);
+				}
+				var dialog = document.getElementById('dialog-2');
+				
+			    if (! dialog.showModal) {
+			      dialogPolyfill.registerDialog(dialog);
+			    }
+			    
+			    dialog.querySelector('#dialog-close-button-2').addEventListener('click', function() {
+			      try{ dialog.close();} catch(DOMException){}
+			    });
+			    
+			    dialog.showModal();
+			}
+		});
+		
+	}
+	
 	function showToast(text) {
 		var snackbarContainer = $("#toast")[0];
 		var data = {message: text};
@@ -375,7 +415,7 @@ $(document).ready(function() {
     	.attr({
     		"class": "mdl-dialog__title"
     	}).html(title);
-    	div.append(h4).append($("<br/>"));
+    	div.append(h4).append($("<br/><br/><br/>"));
         for(var i=0; i<messages.length; i++){
         	var date = "" + messages[i]["date_sent"];
         	if(messages[i]['sender'] !== $("span.username").text()){
@@ -506,6 +546,7 @@ $(document).ready(function() {
 	$("#compose").on("click", compose);
 	$("#logout").on("click", logout);
 	$("#reply-send").on("click", replySend);
+	$("#viewusers").on("click", showUsers);
 	var newmessage = new EventSource("cgi-bin/alert.php");
 	
 	newmessage.onopen = function(event) {	// For firefox
