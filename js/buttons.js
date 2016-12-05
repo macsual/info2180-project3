@@ -18,7 +18,12 @@ $(document).ready(function() {
 					var sender;
 					var subject = messages[0]['subject'];
 					var count = 0;
-					console.log(messages);
+					
+					$("#subject-id").html(subject);
+					$("#recipient-id").html(button.attr("recipient"));
+					$("#sender-id").html(button.attr("sender"));
+					$("#conversation-id").html(conversationn);
+					
 					while (true) {
 						if(count == messages.length){
 							break
