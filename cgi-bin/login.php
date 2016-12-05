@@ -3,7 +3,7 @@
 $dbhost = getenv('IP');
 $dbusername = getenv('C9_USER');
 $dbpassword = '';
-$dbname = 'cheapomail';
+$dbname = 'cheapo';
 
 if ($_SERVER["REQUEST_METHOD"] != POST) {
     header("Content-Type: text/plain");
@@ -27,18 +27,19 @@ if (isset($_POST["username"]) && !empty($_POST["username"])
     
     $conn = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbusername, $dbpassword);
     
-    $stmt = $conn->query("SELECT password FROM Users where username='$username'");
+    $stmt = $conn->query("SELECT password FROM User where username='$username'");
     
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-    $hash = $results[0];
+    $hash = $results[0]['password'];
     
     if (password_verify($password, $hash)) {
         $_SESSION['loggedin'] = true;
+        $_SESSION['username'] = $username;
 
-        echo file_get_contents("../html/home.html");
+        echo "true";
     } else {
-        echo "Login failed";
+        echo "false";
     }
 }
 

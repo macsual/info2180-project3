@@ -1,0 +1,2 @@
+#Prevents directory browsing
+Options -Indexes
