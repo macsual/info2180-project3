@@ -34,10 +34,10 @@
     }
     
     function showToast(text) {
-		var snackbarContainer = $("#toast")[0];
-		var data = {message: text};
-		snackbarContainer.MaterialSnackbar.showSnackbar(data);
-	}
+        var snackbarContainer = $("#toast")[0];
+        var data = {message: text};
+        snackbarContainer.MaterialSnackbar.showSnackbar(data);
+    }
     
     function login(e) {
         e.preventDefault();
@@ -52,9 +52,9 @@
             if (this.readyState == 4 && this.status == 200) {
                 if(this.responseText === "true"){
                     $.ajax({
-            			url: "html/home.html",
-            			success:function(result) {
-            			    $("#container").empty();
+                        url: "html/home.html",
+                        success:function(result) {
+                            $("#container").empty();
                             var hdiv = document.createElement("div");
                             hdiv.innerHTML = result;
                             var buttonscript = document.createElement("script");
@@ -63,8 +63,8 @@
                             hdiv.appendChild(buttonscript);
                             componentHandler.upgradeElement(hdiv);
                             container.appendChild(hdiv);
-            			}
-            		});
+                        }
+                    });
                 } else {
                     showToast("Incorrect credentials");
                 }
