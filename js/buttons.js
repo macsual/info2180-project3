@@ -5,8 +5,6 @@ $(document).ready(function() {
 		var conversationn = parseInt(conversation);
 		
 		button.on("click", function(event) {
-			readmessage(parseInt(conversationn));
-			
 			$.ajax({
 				url: "cgi-bin/conversation.php",
 				type:"post",
@@ -34,6 +32,11 @@ $(document).ready(function() {
 						}
 						count++;
 					}
+					
+					for(var i=0; i<messages.length; i++){
+						readmessage(messages[i]['id']);
+					}
+					
 					var title = "From: "+ sender + "<br/>Subject: " + subject;
 					showDialog(title, messages);
 				}
@@ -515,7 +518,7 @@ $(document).ready(function() {
 		            pword = escapeHtml(pword);
 		            pwordc = escapeHtml(pwordc);
 		            
-		            if(pword !== pwordc){
+		            if(pword !== pwordc) {
 		            	showToast("Passwords do not match");
 		            	return;
 		            }
