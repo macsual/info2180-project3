@@ -38,6 +38,8 @@ The home screen allows a logged in user to see their 10 most recent messages and
 ### Compose and send a message
 The compose message screen includes a "subject", "recipients", and "body". Once a message is completed the logged in user can click the send button to make the message go to all recipients. 
 
+To send a message to multiple recipients, delimit the usernames with a semicolon (;) without spaces between the names
+
 ### Receive and read a message
 Each recipient of the message is alerted on their home screen of new messages. Each message is shown based on the subject and sender. Messages that have not been read are bold. When a message is opened it is immediately "flagged" as being read and is no longer bold in the home screen.
 
