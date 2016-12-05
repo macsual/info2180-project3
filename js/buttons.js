@@ -277,7 +277,7 @@ $(document).ready(function() {
 		var failed = [];
 		
 		for(var i=0; i<recipients.length; i++){
-			var postdata = "recipient=" + recipient[i] + "&subject=" + subject + "&body=" + body;
+			var postdata = "recipient=" + recipients[i] + "&subject=" + subject + "&body=" + body;
 			$.ajax({
 			  type: "POST",
 			  url: "cgi-bin/sendmessage.php",
@@ -286,19 +286,14 @@ $(document).ready(function() {
 			  	if(result === "true"){
 			  		count++;
 			  	} else {
-			  		failed.push(recipient[i]);
+			  		failed.push(recipients[i]);
 			  	}
 			  }
 			});
 		}
 		
-		if(count === recipients.length){
-			showToast("Message sent");
-			$("#messages").click();
-		} else {
-			showToast("Messages sent to " + count+ "recipients. Failed for: " + failed);
-			$("#messages").click();
-		}
+		showToast("Message sent");
+		$("#messages").click();
 	}
 	
 	function showUsers(event) {
